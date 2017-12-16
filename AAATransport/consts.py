@@ -1,4 +1,5 @@
-MIDI_CHANNEL = 0
+""" Here we define some global variables for NanoKontrol Init Scene"""
+CHANNEL = 0 # Channels are numbered 0 through 15, this script only makes use of one MIDI Channel (Channel 1)
 
 TRACK_LEFT = 58
 TRACK_RIGHT = 59

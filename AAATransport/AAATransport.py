@@ -11,9 +11,6 @@ from _Framework.InputControlElement import MIDI_CC_TYPE  # Base class for all cl
 from _Framework.SliderElement import SliderElement # Class representing a slider on the controller
 from ShiftableTransportComponent import ShiftableTransportComponent
 
-""" Here we define some global variables """
-CHANNEL = 0 # Channels are numbered 0 through 15, this script only makes use of one MIDI Channel (Channel 1)
-
 class AAATransport(ControlSurface):
     __module__ = __name__
     __doc__ = " AAATransport keyboard controller script "
@@ -34,12 +31,6 @@ class AAATransport(ControlSurface):
             bug = app.get_bugfix_version() # get the bugfix version from the App
             self.show_message(str(maj_v) + "." + str(min_v) + "." + str(bug)) #put them together and use the ControlSurface show_message method to output version info to console
             self._set_suppress_features(False) #Turn rebuild back on, now that we're done setting up
-            Live.Base.log("LOG: Quantization")
-            for el in Live.Song.Quantization.values:
-                print  Live.Base.log("LOG: " + str(el))
-            Live.Base.log("LOG: RecordingQuantization")
-            for el in Live.Song.RecordingQuantization.values:
-                print  Live.Base.log("LOG: " + str(el))          
         Live.Base.log("LOG: AAATransport __init__ end")
 
     def _set_suppress_features(self, state):
@@ -73,18 +64,18 @@ class AAATransport(ControlSurface):
         transport.set_tempo_control(SliderElement(MIDI_CC_TYPE, CHANNEL, FADER[0]), SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[0])) #(control, fine_control)#OK
         transport.set_song_position_control(SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[1]))#OK
         
-        
         #REDO, UNDO, SHIFT, BTS
         transport.set_transport_shift_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, SET)) #OK
         transport.set_undo_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, MARKER_LEFT))
         transport.set_redo_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, MARKER_RIGHT))
         transport.set_bts_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, SOLO[4]))
+        transport.set_back_to_arranger_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, SOLO[5]))
+        transport.set_follow_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, SOLO[6]))
         
         transport.set_tempo_buttons(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, TRACK_LEFT), ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, TRACK_RIGHT)) #(in_button, out_button)
-        transport.set_record_quant_slider(SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[3]))
-        transport.set_follow_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, ARM[6]))
-        transport.set_back_to_arranger_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, ARM[7]))
+        
         transport.set_launch_quant_slider(SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[2]))
+        transport.set_record_quant_slider(SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[3]))
         
         Live.Base.log("LOG: AAATransport _setup_transport_control end")
 
