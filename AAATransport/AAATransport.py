@@ -81,10 +81,10 @@ class AAATransport(ControlSurface):
         transport.set_bts_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, SOLO[4]))
         
         transport.set_tempo_buttons(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, TRACK_LEFT), ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, TRACK_RIGHT)) #(in_button, out_button)
-        #transport.set_launch_quant_button(SliderElement(MIDI_CC_TYPE, CHANNEL, FADER[1]))
-        transport.set_record_quant_button(SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[2]))
+        transport.set_record_quant_slider(SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[3]))
         transport.set_follow_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, ARM[6]))
         transport.set_back_to_arranger_button(ButtonElement(is_momentary, MIDI_CC_TYPE, CHANNEL, ARM[7]))
+        transport.set_launch_quant_slider(SliderElement(MIDI_CC_TYPE, CHANNEL, PAN[2]))
         
         Live.Base.log("LOG: AAATransport _setup_transport_control end")
 
